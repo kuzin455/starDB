@@ -3,18 +3,22 @@ import React, {Component} from 'react';
 import Header from '../header';
 import RandomPlanet from '../random-planet';
 import ItemList from '../item-list';
-import PersonDetails from '../person-details';
+import ItemDetails from '../item-details';
 
 import './app.css';
 import ErrorButton from "../eroor-button";
 import ErrorIndicator from "../error-indicator";
 import PeoplePage from "../people-page";
+import SwapiService from "../../services/swapi-service";
+import ErrorBoundry from "../error-boundry";
+import Row from "../row";
 
 export default class App extends Component {
+    swapiService = new SwapiService();
 
     state = {
         showRandomPlanet: true,
-        hasError: false,
+
     };
 
     toggleRandomPlanet = () => {
@@ -26,10 +30,6 @@ export default class App extends Component {
     };
 
 
-    componentDidCatch(error, errorInfo) {
-        console.log('didCatch');
-        this.setState({hasError: true})
-    }
 
     render() {
 
@@ -42,7 +42,9 @@ export default class App extends Component {
             null;
 
         return (
-            <div>
+
+            <ErrorBoundry>
+            <div className='stardb-app'>
                 <Header/>
                 {planet}
                 <div className="row mb2 button-row">
@@ -53,8 +55,10 @@ export default class App extends Component {
                     </button>
                     <ErrorButton/>
                 </div>
-                <PeoplePage/><PeoplePage/><PeoplePage/>
+                <PeoplePage/>
+
             </div>
+            </ErrorBoundry>
         );
     }
 };

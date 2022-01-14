@@ -6,27 +6,27 @@ import Spinner from "../spiner";
 
 export default class ItemList extends Component {
 
-    swapiService = new SwapiService();
     state = {
         peopleList: null
     };
 
     componentDidMount() {
-        this.swapiService
-            .getAllPeople()
+        const {getData} = this.props;
+        getData()
             .then((peopleList) => {
                 this.setState({peopleList})
             })
     }
 
     renderItem(arr) {
-        return arr.map(({id, name}) => {
+        return arr.map((item) => {
+            const {id} = item
+            const label = this.props.children(item)
             return (
-
                 <li className="list-group-item"
-                key={id}
-                onClick={()=>this.props.onItemSelected(id )}>
-                    {name}
+                    key={id}
+                    onClick={() => this.props.onItemSelected(id)}>
+                    {label}
                 </li>
             )
         })
@@ -38,9 +38,8 @@ export default class ItemList extends Component {
         if (!peopleList) {
             return <Spinner/>
         }
-const item = this.renderItem(peopleList)
+        const item = this.renderItem(peopleList)
         return (
-
             <ul className="item-list list-group">
                 {item}
             </ul>

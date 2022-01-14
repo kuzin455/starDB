@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 
-import './person-details.css';
+import './item-details.css';
 import SwapiService from "../../services/swapi-service";
 import Spinner from "../spiner";
 import ErrorButton from "../eroor-button";
-
-export default class PersonDetails extends Component {
+ export default class ItemDetails extends Component {
 
     swapiService = new SwapiService();
 
@@ -18,14 +17,15 @@ export default class PersonDetails extends Component {
     componentDidMount() {
         this.updatePerson();
     }
-componentDidUpdate(prevProps ) {
-         if ( this.props.personId !== prevProps.personId){
-             this.updatePerson();
-         }
-}
+
+    componentDidUpdate(prevProps) {
+        if (this.props.personId !== prevProps.personId) {
+            this.updatePerson();
+        }
+    }
 
     updatePerson() {
-        const { personId } = this.props;
+        const {personId} = this.props;
         if (!personId) {
             return;
         }
@@ -33,14 +33,13 @@ componentDidUpdate(prevProps ) {
         this.swapiService
             .getPerson(personId)
             .then((person) => {
-                this.setState({ person });
+                this.setState({person});
             });
     }
 
 
-
     render() {
-const { loading } = this.state
+        const {loading} = this.state
         const spinner = loading ? <Spinner/> : null;
 
         if (!this.state.person) {
@@ -49,7 +48,7 @@ const { loading } = this.state
                 {spinner}
              </span>);
         }
-        const {  id, name,  gender, birthYear, eyeColor} = this.state.person;
+        const {id, name, gender, birthYear, eyeColor} = this.state.person;
 
         return (
             <div className="person-details card">
@@ -65,7 +64,7 @@ const { loading } = this.state
                         </li>
                         <li className="list-group-item">
                             <span className="term">Birth Year</span>
-                            <span>{birthYear}</span>
+                            <span>{birthYear}   </span>
                         </li>
                         <li className="list-group-item">
                             <span className="term">Eye Color</span>

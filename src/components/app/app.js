@@ -37,9 +37,12 @@ export default class App extends Component {
                             <Header onServiceChange={this.onServiceChange}/>
                             <RandomPlanet/>
                             <Routes>
-                                <Route path='/people' element={<PeoplePage/>}/>
-                                <Route path='/planets' element={<PlanetsPage/>}/>
-                                <Route path='/starships' element={<StarshipsPage/>}/>
+                                <Route path='/' element={<h1>Hello to StarDB</h1>}
+                                       exact={true}/>
+                                <Route path='/people/' element={<PeoplePage/>}/>
+                                <Route path='/planets/' element={<PlanetsPage/>}/>
+                                <Route path='starships/' element={<StarshipsPage/>}/>
+
                             </Routes>
                         </div>
 
